@@ -18,7 +18,6 @@ class TopDrawer extends Component {
   }
 
   render() {
-    console.log(this.props.tweets);
     let classes = 'top-drawer ' + (this.props.visible ? 'visible' : '');
     return (
       <div className={ classes }>

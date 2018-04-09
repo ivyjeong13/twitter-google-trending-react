@@ -26,7 +26,8 @@ class MainMap extends Component {
       showDrawer: false,
       tweets: [],
       showTwitter: false,
-      query: ''
+      query: '',
+      selected: false
     };
   }
 
@@ -47,16 +48,25 @@ class MainMap extends Component {
     var googleId = COUNTRIES.trendingCountries[geography.id] ? COUNTRIES.trendingCountries[geography.id] : false;
     if(googleId){
       controller.callApi(googleId)
-        .then(res => controller.setState({ items: res, showDrawer: true }))
+        .then(function( res ){
+          let match = CENTROIDS.centroids.filter(function(item){
+            return item.name.toLowerCase() === geography.properties.name.toLowerCase();
+          });
+
+          let position = match.length ? [match[0].long, match[0].lat] : [0, 0];
+          let zoomLevel = match.length ? 3 : 1;
+
+          controller.setState({ items: res, showDrawer: true, zoomCenter: position, zoomLevel: zoomLevel, selected: geography.id });
+        })
         .catch(err => console.log(err));
     } else {
-      controller.setState({ items: {} });
+      controller.setState({ items: {}, selected: false });
       controller.props.onError( geography.properties.name + ' does not have an associated Google Trending ID.');
     }
   }
 
   handleClickOutside(){
-    controller.setState({ showDrawer: false });
+    controller.setState({ showDrawer: false, zoomCenter: [0, 0], zoomLevel: 1, selected: false });
   }
 
   handleTwitterDrawerCollapse(){
@@ -104,53 +114,69 @@ class MainMap extends Component {
           onTwitterDrawerCollapse={ this.handleTwitterDrawerCollapse.bind(this) }
         >
         </TopDrawer>
-        <ComposableMap
-          projectionConfig={{ rotation: [0, 0, 0]}}
+        <Motion
+          defaultStyle={{
+            zoom: 1,
+            x: 0,
+            y: 0
+          }}
+
           style={{
-            width: '100%',
-            height: this.state.mapHeight
+            zoom: spring(this.state.zoomLevel, { stiffness: 210, damping: 20 }),
+            x: spring(this.state.zoomCenter[0], { stiffness: 210, damping: 20}),
+            y: spring(this.state.zoomCenter[1], { stiffness: 210, damping: 20}),
           }}
         >
-        <ZoomableGroup 
-          center={ this.state.zoomCenter }
-          zoom={ this.state.zoom }
-          disablePanning={true}
-        >
-          <Geographies
-            geography={process.env.PUBLIC_URL + '/json/world-50m.json'}
+        {({zoom, x, y }) => (
+          <ComposableMap
+            projectionConfig={{ rotation: [0, 0, 0]}}
+            style={{
+              width: '100%',
+              height: "auto"
+            }}
           >
-            {(geographies, projection) => geographies.map((geography, i) => (
-              <Geography
-                key={i}
-                onClick={this.handleClick.bind(this)}
-                geography={geography}
-                projection={projection}
-                style={{
-                  default: {
-                    fill: COUNTRIES.trendingCountries[geography.id] ? "#8fa4ad" : "#ECEFF1",
-                    stroke: "#607D8B",
-                    strokeWidth: 0.50,
-                    outline: "none",
-                  },
-                  hover: {
-                    fill: COUNTRIES.trendingCountries[geography.id] ? "#607D8B" : "#ECEFF1",
-                    stroke: "#607D8B",
-                    strokeWidth: 0.50,
-                    outline: "none",
-                  },
-                  pressed: {
-                    fill: "#FF5722",
-                    stroke: "#607D8B",
-                    strokeWidth: 0.50,
-                    outline: "none",
-                  },
-                }}
-              />
-            ))}
-          </Geographies>
-          <Graticule />
-        </ZoomableGroup>
-        </ComposableMap>
+            <ZoomableGroup 
+              center={[x, y]} 
+              zoom={ zoom }
+              disablePanning={true}
+            >
+              <Geographies
+                geography={process.env.PUBLIC_URL + '/json/world-50m.json'}
+              >
+                {(geographies, projection) => geographies.map((geography, i) => (
+                  <Geography
+                    key={i}
+                    onClick={this.handleClick.bind(this)}
+                    geography={geography}
+                    projection={projection}
+                    style={{
+                      default: {
+                        fill: COUNTRIES.trendingCountries[geography.id] ? "#8fa4ad" : "#ECEFF1",
+                        stroke: "#607D8B",
+                        strokeWidth: 0.50,
+                        outline: "none",
+                      },
+                      hover: {
+                        fill: COUNTRIES.trendingCountries[geography.id] ? "#607D8B" : "#ECEFF1",
+                        stroke: "#607D8B",
+                        strokeWidth: 0.50,
+                        outline: "none",
+                      },
+                      pressed: {
+                        fill: "#435761",
+                        stroke: "#607D8B",
+                        strokeWidth: 0.50,
+                        outline: "none",
+                      },
+                    }}
+                  />
+                ))}
+              </Geographies>
+              <Graticule />
+            </ZoomableGroup>
+          </ComposableMap>
+        )}
+        </Motion>
       </div>
     );
   }
