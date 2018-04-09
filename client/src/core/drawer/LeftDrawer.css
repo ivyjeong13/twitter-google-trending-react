@@ -1,0 +1,19 @@
+.left-drawer{
+	position: fixed;
+	top: 0;
+	left: -1000px;
+	width: 35%;
+	min-width:300px;
+	height: 100%;
+	background: #ffffff;
+	box-shadow: 1px 1px 4px #ccc;
+	-webkit-transition: left 500ms; /* Safari */
+	-ms-transition: left 500ms;
+    transition: left 500ms;
+    overflow-y: auto;
+}
+
+
+.left-drawer.visible{
+	left: 0;
+}

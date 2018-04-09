@@ -1,0 +1,27 @@
+.error-dialog{
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  background: rgba(255, 76, 76, 0.35);
+  border:1px solid #ff4c4c;
+  border-radius: 2px;
+  margin: 10px;
+  padding: 5px;
+  max-width: 200px;
+  font-size: 12px;
+  text-align: left;
+  opacity: 0;
+
+  transition: opacity 250ms;
+  -ms-transition: opacity 250ms;
+  -webkit-transition: opacity 250ms;
+}
+.error-dialog i{
+  font-size: 16px;
+  position: relative;
+  top: 4px;
+}
+.error-dialog.visible{
+  opacity: 1;
+}

@@ -1,0 +1,29 @@
+.related-item{
+	padding-bottom: 5px;
+	float: left;
+	width: 100%;
+}
+
+.related-item span{
+	display: block;
+	width: 100%;
+	float: left;
+	text-align: left;
+	font-size: 12px;
+}
+
+.related-item span.source{
+	background: #999;
+	color: #ffffff;
+	padding:2px 5px; 
+	font-size: 8px;
+	font-weight: bold;
+	text-align: right;
+	text-transform: uppercase;
+}
+
+.related-item span.title{
+	background: #fafafa;
+	padding:4px;
+
+}

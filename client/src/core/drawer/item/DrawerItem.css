@@ -1,0 +1,46 @@
+.drawer-item{
+  float: left;
+  width: 100%;
+  padding: 10px;
+  border-bottom:1px solid #ccc;
+  cursor: pointer;
+}
+.drawer-item:hover{
+  background: #eeeeee;
+}
+.drawer-item img{
+  float: left;
+  width: 25%;
+}
+.drawer-container{
+  float: left;
+  width: 75%;
+  padding-left: 10px;
+}
+.drawer-container h3{
+  margin: 0;
+  text-align: left;
+  padding-bottom: 5px;
+  font-size:15px;
+  font-weight: lighter;
+}
+.drawer-container h3 i {
+  position: relative;
+  top: 6px;
+}
+
+.related{
+  margin-top:10px;
+  height: 0;
+  transition: height 500ms;
+  -ms-transition: height 500ms;
+  -webkit-transition: height 500ms;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+}
+
+.related.visible{
+  height: 100px;
+  overflow-y: auto;
+}
