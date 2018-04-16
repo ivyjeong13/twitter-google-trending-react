@@ -1,16 +1,35 @@
 .drawer-item{
   float: left;
   width: 100%;
-  padding: 10px;
   border-bottom:1px solid #ccc;
   cursor: pointer;
 }
-.drawer-item:hover{
+.drawer-item img {
+  max-height: 50px;
+  max-width: 50px;
+}
+.drawer-item > div { 
+  position: relative;
+  float: left; 
+  width: 100%;
+  padding: 10px;
+}
+.drawer-item:active{
   background: #eeeeee;
 }
 .drawer-item img{
   float: left;
   width: 25%;
+}
+.drawer-item .item-description{
+  font-size: 10px;
+  font-weight: lighter;
+  text-align: left;
+}
+.drawer-item .traffic{
+  font-size: 8px;
+  text-align: left;
+  padding-top: 5px;
 }
 .drawer-container{
   float: left;
@@ -24,23 +43,41 @@
   font-size:15px;
   font-weight: lighter;
 }
-.drawer-container h3 i {
-  position: relative;
-  top: 6px;
+.drawer-item .display-more{
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  border-left: 1px solid #ccc;
+  width: 24px;
+}
+.drawer-item .display-more i{
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%);
+  right: 0;
+}
+
+.drawer-item .display-more:hover{
+  background: #fafafa;
 }
 
 .related{
-  margin-top:10px;
-  height: 0;
-  transition: height 500ms;
-  -ms-transition: height 500ms;
-  -webkit-transition: height 500ms;
+  padding: 0 !important;
+  max-height: 0;
+  transition: max-height 250ms ease-out;
+  -ms-transition: max-height 250ms ease-out;
+  -webkit-transition: max-height 250ms ease-out;
   overflow: hidden;
   float: left;
   width: 100%;
 }
 
 .related.visible{
-  height: 100px;
+  max-height: 1000px;
   overflow-y: auto;
+  transition: max-height 250ms ease-in;
+  -ms-transition: max-height 250ms ease-in;
+  -webkit-transition: max-height 250ms ease-in;
 }

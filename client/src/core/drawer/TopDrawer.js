@@ -11,17 +11,37 @@ class TopDrawer extends Component {
     super(props);
 
     controller = this;
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
   }
 
   handleCollapse(){
     this.props.onTwitterDrawerCollapse();
   }
 
+  componentDidMount(){
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount(){
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  setWrapperRef(node){
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event){
+    if(this.wrapperRef && !this.wrapperRef.contains(event.target) && this.props.visible){
+      this.props.onTwitterDrawerCollapse();
+    }
+  }
+
   render() {
     let classes = 'top-drawer ' + (this.props.visible ? 'visible' : '');
     return (
       <div className={ classes }>
-        <div className="top-drawer-container">
+        <div className="top-drawer-container" ref={ this.setWrapperRef }>
           <div className="tweets">
             { this.props.tweets && this.props.tweets.statuses &&
               this.props.tweets.statuses.map(function(tweet,i){
@@ -35,7 +55,6 @@ class TopDrawer extends Component {
         </div>
         <div 
           className="handle"
-          onClick={ this.handleCollapse.bind(this) }
         >
           <MaterialIcon icon="chevron_right" /> 
         </div>

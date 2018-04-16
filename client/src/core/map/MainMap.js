@@ -27,7 +27,8 @@ class MainMap extends Component {
       tweets: [],
       showTwitter: false,
       query: '',
-      selected: false
+      selected: false,
+      location: ''
     };
   }
 
@@ -56,11 +57,11 @@ class MainMap extends Component {
           let position = match.length ? [match[0].long, match[0].lat] : [0, 0];
           let zoomLevel = match.length ? 3 : 1;
 
-          controller.setState({ items: res, showDrawer: true, zoomCenter: position, zoomLevel: zoomLevel, selected: geography.id });
+          controller.setState({ items: res, location: geography.properties.name, showDrawer: true, zoomCenter: position, zoomLevel: zoomLevel, selected: geography.id });
         })
         .catch(err => console.log(err));
     } else {
-      controller.setState({ items: {}, selected: false });
+      controller.setState({ items: {}, location: '', selected: false });
       controller.props.onError( geography.properties.name + ' does not have an associated Google Trending ID.');
     }
   }
@@ -104,6 +105,7 @@ class MainMap extends Component {
         <LeftDrawer
           items={ this.state.items }
           visible={ this.state.showDrawer }
+          location={ this.state.location }
           onClickOutside={ this.handleClickOutside.bind(this) }
           onSelectItem={ this.handleSelectedItem.bind(this) }
         ></LeftDrawer>

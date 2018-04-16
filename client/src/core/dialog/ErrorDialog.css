@@ -18,7 +18,7 @@
   -webkit-transition: opacity 250ms;
 }
 .error-dialog i{
-  font-size: 16px;
+  font-size: 16px !important;
   position: relative;
   top: 4px;
 }

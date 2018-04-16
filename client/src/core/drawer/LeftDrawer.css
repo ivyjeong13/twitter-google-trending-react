@@ -11,9 +11,17 @@
 	-ms-transition: left 500ms;
     transition: left 500ms;
     overflow-y: auto;
+    border-right: 1px solid #999;
 }
-
 
 .left-drawer.visible{
 	left: 0;
+}
+
+.left-drawer .country{
+	width: 100%;
+	background: #607D8B;
+	padding: 5px;
+	text-transform: uppercase;
+	color: #fff;
 }

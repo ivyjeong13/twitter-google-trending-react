@@ -1,5 +1,4 @@
 .related-item{
-	padding-bottom: 5px;
 	float: left;
 	width: 100%;
 }
@@ -9,10 +8,9 @@
 	width: 100%;
 	float: left;
 	text-align: left;
-	font-size: 12px;
 }
 
-.related-item span.source{
+.related-item .source{
 	background: #999;
 	color: #ffffff;
 	padding:2px 5px; 
@@ -20,10 +18,22 @@
 	font-weight: bold;
 	text-align: right;
 	text-transform: uppercase;
+	overflow: hidden;
+}
+.related-item .source-name{
+	float: right;
+	max-width: 25%;
+	border-left: 1px solid #fff;
+	padding-left: 5px;
+}
+.related-item .title{
+	float: right;
+	max-width: 75%;
 }
 
-.related-item span.title{
-	background: #fafafa;
+.related-item .description{
 	padding:4px;
-
+	background: #fafafa;
+	font-size: 12px;
+	overflow: hidden;
 }

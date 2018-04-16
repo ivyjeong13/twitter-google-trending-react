@@ -18,14 +18,15 @@ class DrawerItem extends Component {
           <img src={ this.props.item['ht:picture'][0] }/>
           <div className="drawer-container">
             <h3>{ this.props.item.title } 
-              <span onClick={ (e) => this.props.toggleRelated(e, this.props.index) }>
-              {  this.props.item.visible ? 
-                  <MaterialIcon icon="expand_less" /> :
-                  <MaterialIcon icon="expand_more" />
-              }
-              </span>
             </h3>
+            <div className="item-description">{ this.props.item.description }</div>
           </div>
+          <span className="display-more" onClick={ (e) => this.props.toggleRelated(e, this.props.index) }>
+          {  this.props.item.visible ? 
+              <MaterialIcon icon="expand_less" /> :
+              <MaterialIcon icon="expand_more" />
+          }
+          </span>
         </div>
         <div className={ relatedClasses }>
           { this.props.item['ht:news_item'].map(function(newsItem,i){

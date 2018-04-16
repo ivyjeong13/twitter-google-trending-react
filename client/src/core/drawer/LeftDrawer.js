@@ -67,7 +67,8 @@ class LeftDrawer extends Component {
   render() {
     var classes = 'left-drawer ' + (this.props.visible ? 'visible' : '');
     return (
-      <div className={ classes } ref={this.setWrapperRef}>
+      <div className={ classes } ref={ this.setWrapperRef }>
+        <div className="country">{ this.props.location }</div>
         {
           controller.state.items.map(function(item, i){
             return <DrawerItem onSelectItem={ controller.props.onSelectItem } toggleRelated={ controller.toggleRelated } key={ i } index={i} item={ item }></DrawerItem>;
