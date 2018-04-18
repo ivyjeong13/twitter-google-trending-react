@@ -15,4 +15,5 @@ Note that you will need the following:
 https://developer.twitter.com/en/docs/basics/authentication/overview/oauth
 
 ## preview
-![Preview](https://thumbs.gfycat.com/BruisedWelcomeBlackwidowspider-size_restricted.gif)
+![Preview](https://thumbs.gfycat.com/DisastrousPracticalCrane-size_restricted.gif)
+https://gfycat.com/gifs/detail/DisastrousPracticalCrane
